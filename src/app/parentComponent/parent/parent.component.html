@@ -1,0 +1,78 @@
+<div id="header">
+  <h3>Student Management</h3>
+</div>
+<div id="navbar">
+  <ul>
+    <li> <a href=" ">Home </a></li>
+  </ul>
+</div>
+
+
+<div class="main">
+  <h1> List of avalible users </h1>
+  <table>
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>StudentId</th>
+    <th>Address</th>
+    <th>Mobile</th>
+    <th>Email</th>
+    <th>Display</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <div *ngFor="let student of studentsInformation; trackBy:trackBystudentId">
+    <app-child [student]="student" (selectedStudentData)="onSelectStudent($event)"></app-child>
+    
+  </div>
+  </tr>
+</tbody>
+  </table>
+</div>
+
+<div class="main">
+  <ng-container *ngIf="selectedStudentData;else elseTemplate">
+    <app-child [student]="selectedStudentData"></app-child>
+</ng-container>
+<ng-template #elseTemplate>
+    <p>No Data Found</p>
+</ng-template>
+</div>
+
+<div class = "main">
+  <div *ngFor="let item of selectedStudentData | keyvalue " [ngSwitch] = "item.key">    
+      <table> 
+        <tbody>       
+          <ng-template [ngSwitchCase] = "'id'"></ng-template>
+          <ng-template [ngSwitchCase] = "'studentId'">
+            <tr> <td>StudentID:</td> <td>{{item.value | StringConcat}}</td></tr>
+          </ng-template>
+          <ng-template [ngSwitchCase] = "'firstName'">
+            <tr> <td>FirstName:</td> <td>{{item.value | uppercase}}</td></tr>
+          </ng-template>
+          <ng-template [ngSwitchCase] = "'lastName'">
+            <tr> <td>LastName:</td> <td>{{item.value | uppercase}}</td></tr>
+          </ng-template>
+          <ng-template [ngSwitchCase] = "'address'">
+            <tr> <td>Address:</td> <td>{{item.value | titlecase}}</td></tr>
+          </ng-template>
+          <ng-template [ngSwitchCase] = "'mobileNo'">
+            <tr> <td>Mobile:</td> <td>{{item.value}}</td></tr>
+          </ng-template>
+          <ng-template [ngSwitchCase] = "'email'">
+            <tr> <td>EMail:</td> <td>{{item.value}}</td></tr>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            Nothing found
+          </ng-template>
+        </tbody>
+      </table> 
+      
+    
+  </div>
+  <button (click)=clearStudentData()>clear data</button>
+</div>

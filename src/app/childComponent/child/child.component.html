@@ -1,0 +1,15 @@
+<table>
+
+<tr>
+<!--<span  appHighlight [styleObj] = "styleObj" [defultStyleObj]="defaultStyleObj">-->
+    {{student.id}}
+    {{student.firstName|uppercase}}
+    {{student.lastName |uppercase}}
+    {{student.studentId}}
+    {{student.address}}
+    {{student.mobileNo}}
+    {{student.email}}
+    <button (click)= onSelectStudent(student)> selected user</button>
+<!--</span>-->
+</tr>
+</table>
